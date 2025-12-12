@@ -1,0 +1,7 @@
+order of the columns in numpy arrays:
+# [Bp, Bv, Ap, Av][T]
+
+How to use the new Npz, it is a strucutred array:
+    data = np.load("something.npz")
+    t = data["t"]     # int32 relative ms
+    x = data["x"]     # float32 features
