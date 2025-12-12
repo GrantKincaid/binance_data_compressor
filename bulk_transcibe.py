@@ -90,8 +90,11 @@ def convert_json_to_npz(path: str):
         del chunk, t64, rel
         gc.collect()
 
-    coin_path = path.split('/')
+    coin_path = path.split('\\')
     coin_name = coin_path[-2] # Gets the name of the coin
+    dest = os.path.join(BASE_DEST, coin_name)
+    if not os.path.exists(dest):
+        os.mkdir(dest)
     out_path = os.path.join(BASE_DEST, coin_name, p.stem + ".npz")
     np.savez(out_path, t=timestamps, x=features)
 
@@ -140,8 +143,11 @@ def convert_npy_to_npz(path: str):
         del sub, t64, rel
         gc.collect()
 
-    coin_path = path.split('/')
+    coin_path = path.split('\\')
     coin_name = coin_path[-2] # Gets the name of the coin
+    dest = os.path.join(BASE_DEST, coin_name)
+    if not os.path.exists(dest):
+        os.mkdir(dest)
     out_path = os.path.join(BASE_DEST, coin_name, p.stem + ".npz")
     np.savez(out_path, t=timestamps, x=features)
 
@@ -169,7 +175,7 @@ if __name__ == "__main__":
     print(folders)
     records = []
     for folder in folders:
-        records.append(glob.glob(folder + "\*"))
+        records.append(glob.glob(folder + "\\*"))
         
     flat_records = []
     for sublist in records:
@@ -200,7 +206,7 @@ if __name__ == "__main__":
     print("Files to process:", len(kept))
 
     # Important: keep processes low until you're sure memory usage is stable
-    with Pool(processes=10) as pool:
+    with Pool(processes=20) as pool:
         pool.map(file_processor, kept)
 
     print("done")
