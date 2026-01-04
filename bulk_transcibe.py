@@ -206,7 +206,7 @@ if __name__ == "__main__":
     print("Files to process:", len(kept))
 
     # Important: keep processes low until you're sure memory usage is stable
-    with Pool(processes=20) as pool:
+    with Pool(processes=30) as pool:
         pool.map(file_processor, kept)
 
     print("done")
